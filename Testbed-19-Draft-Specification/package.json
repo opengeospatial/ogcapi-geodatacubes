@@ -1,0 +1,24 @@
+{
+  "name": "geodatacube-api",
+  "version": "1.2.0",
+  "author": "OGC Testbed 19",
+  "license": "Apache-2.0",
+  "description": "The geodatacube API specification.",
+  "homepage": "https://www.ogc.org/initiatives/t-19/",
+  "bugs": {
+    "url": "https://github.com/m-mohr/geodatacube-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mohr/geodatacube-api.git"
+  },
+  "devDependencies": {
+    "@stoplight/spectral-cli": "^6.6.0",
+    "@redocly/cli": "1.0.0-beta.129"
+  },
+  "scripts": {
+    "start": "redocly preview-docs openapi.yaml",
+    "build": "redocly build-docs openapi.yaml -o redoc.html --title \"geodatacube API\" --cdn --disableGoogleFont",
+    "test": "spectral lint openapi.yaml"
+  }
+}

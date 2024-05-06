@@ -1,0 +1,26 @@
+extends: "spectral:oas"
+# Work around broken rules: https://github.com/stoplightio/spectral/issues/1972
+except:
+  "openapi.yaml#/paths/~1udf_runtimes/get/responses/200/content/application~1json/example":
+    - oas3-valid-schema-example
+rules:
+  contact-properties: true
+  tag-description: true
+  oas3-parameter-description: true
+  oas3-unused-component: false # Broken: https://github.com/stoplightio/spectral/issues/1271
+  operation-summary-formatted:
+    description: Operation `summary` should start with upper case and not end with a dot.
+    given: '$.paths.*[?( @property === ''get'' || @property === ''put'' || @property === ''post'' || @property === ''delete'' || @property === ''options'' || @property === ''head'' || @property === ''patch'' || @property === ''trace'' )]'
+    then:
+      field: summary
+      function: pattern
+      functionOptions:
+        match: '^[A-Z].*[^\.]$'
+    tags:
+      - operation
+  operation-id-kebab-case:
+    given: "$..operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-z][a-z0-9\-]*$
